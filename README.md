@@ -52,37 +52,39 @@ python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binar
 ```
 
 ## Documentation
-- The ```python main.py -h``` command displays the commands which are supported by project:
-  usage: main.py [-h] -mfd MODELFACEDETECTION -mfl MODELFACIALLANDMARK -mhp
-               MODELHEADPOSE -mge MODELGAZEESTIMATION -v VIDEO
-               [-prob PROB_THRESHOLD] [-d DEVICE] [-l CPU_EXTENSION]
-               [-flag VISUALFLAG]
+- The ```python main.py -h``` command displays the commands which are supported by 
+  1. -h, --help            show this help message and exit
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -mfd MODELFACEDETECTION, --modelfacedetection MODELFACEDETECTION
+  2. -mfd MODELFACEDETECTION, --modelfacedetection MODELFACEDETECTION
                         Path to .xml file of pretrained Face Detection model.
-  -mfl MODELFACIALLANDMARK, --modelfaciallandmark MODELFACIALLANDMARK
+                        
+  2. -mfl MODELFACIALLANDMARK, --modelfaciallandmark MODELFACIALLANDMARK
                         Specify Path to .xml file of Facial Landmark Detection
                         model.
-  -mhp MODELHEADPOSE, --modelheadpose MODELHEADPOSE
+
+  3. -mhp MODELHEADPOSE, --modelheadpose MODELHEADPOSE
                         Specify Path to .xml file of Head Pose Estimation
                         model.
-  -mge MODELGAZEESTIMATION, --modelgazeestimation MODELGAZEESTIMATION
+
+  4. -mge MODELGAZEESTIMATION, --modelgazeestimation MODELGAZEESTIMATION
                         Specify Path to .xml file of Gaze Estimation model.
-  -v VIDEO, --video VIDEO
+
+  5.  -v VIDEO, --video VIDEO
                         Path of video file or enter cam for webcam.
-  -prob PROB_THRESHOLD, --prob_threshold PROB_THRESHOLD
+
+  6.  -prob PROB_THRESHOLD, --prob_threshold PROB_THRESHOLD
                         Probability threshold for detections filtering (0.6 by
                         default)
-  -d DEVICE, --device DEVICE
+
+  7. -d DEVICE, --device DEVICE
                         Specify the target device to infer on: CPU, GPU, FPGA
                         or MYRIAD is acceptable. Sample will look for a
                         suitable plugin for device specified (CPU by default)
-  -l CPU_EXTENSION, --cpu_extension CPU_EXTENSION
+  8. -l CPU_EXTENSION, --cpu_extension CPU_EXTENSION
                         MKLDNN (CPU)-targeted custom layers.Absolute path to a
                         shared library with thekernels impl.
-  -flag VISUALFLAG, --visualflag VISUALFLAG
+
+  9. -flag VISUALFLAG, --visualflag VISUALFLAG
                         Visualizing of the output model .for Face Detection
                         model output, Enter face_detection for Facial Landmark
                         Detection model, Enter facial_landmark_detection for
