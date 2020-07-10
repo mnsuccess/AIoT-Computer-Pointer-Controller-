@@ -39,7 +39,7 @@ Before you start running this project, you'll need to get your local environment
 ## Demo
 [![Demo video](https://img.youtube.com/vi/t8uR_jaJIzY/0.jpg)](https://youtu.be/t8uR_jaJIzY)
 
-![alt text](https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller-/blob/master/bin/demo_flags.png?raw=true)
+![Demo Cam](https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller-/blob/master/bin/demo_cam_flags.png?raw=true)
 
 #### Step 1
 Clone the repository:- https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller-.git
