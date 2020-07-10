@@ -19,6 +19,7 @@ Before you start running this project, you'll need to get your local environment
     |_ bin
     |  |_demo.mp4
     |  |_demo_cam.png
+    |  |_demo_cam_flags.png
     |  |_demo_video.png
     |- intel
     |  |All model must be here      
@@ -37,8 +38,11 @@ Before you start running this project, you'll need to get your local environment
 ``` 
 ## Demo
 [![Demo video](https://img.youtube.com/vi/t8uR_jaJIzY/0.jpg)](https://youtu.be/t8uR_jaJIzY)
+
+![alt text](https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller-/blob/master/bin/demo_flags.png?raw=true)
+
 #### Step 1
-Clone the repository:- https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller.git
+Clone the repository:- https://github.com/mnsuccess/AIoT-Computer-Pointer-Controller-.git
 Open a new terminal and run the following commands:-
 #### Step 2
 Change the directory to src directory of project repository
@@ -48,7 +52,7 @@ cd <path_to_project_directory>/src
 #### Step 3
  Now, run the following command to run our application
 ```
-python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001.xml   -mfl <path_to_project_directory>/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml -mhp  <path_to_project_directory>/intel/head-pose-estimation-adas-0001/FP16/head-pose-estimation-adas-0001.xml  -mge  <path_to_project_directory>/intel/gaze-estimation-adas-0002/FP16/gaze-estimation-adas-0002.xml -v <path_to_project_directory>/bin/demo.mp4
+python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001.xml   -mfl <path_to_project_directory>/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml -mhp  <path_to_project_directory>/intel/head-pose-estimation-adas-0001/FP16/head-pose-estimation-adas-0001.xml  -mge  <path_to_project_directory>/intel/gaze-estimation-adas-0002/FP16/gaze-estimation-adas-0002.xml -v <path_to_project_directory>/bin/demo.mp4 -flags face_detection facial_landmark_detection pose_estimation gaze_estimation
 ```
 
 ## Documentation
@@ -57,7 +61,7 @@ python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binar
 
   2. -mfd MODELFACEDETECTION, --modelfacedetection MODELFACEDETECTION
                         Path to .xml file of pretrained Face Detection model.
-                        
+
   2. -mfl MODELFACIALLANDMARK, --modelfaciallandmark MODELFACIALLANDMARK
                         Specify Path to .xml file of Facial Landmark Detection
                         model.

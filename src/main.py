@@ -17,30 +17,7 @@ import numpy as np
 def file_not_found(self,filename):
     log.error(" xml "+self.fileName+" file not found")
     exit(1)
-    
-def visualization_model (visualflag=None,visualization_data=None):
-    face_crop = visualization_data["face_crop"]
-    coords_face = visualization_data["face_crop"],
-    frame = visualization_data["frame"]
-    headpose_out= visualization_data["headpose_out"]
-    left_eye= visualization_data["left_eye"]
-    right_eye= visualization_data["right_eye"]
-    eye_coords= visualization_data["eye_coords"]
-    gaze_vector= visualization_data["gaze_vector"]
-    
-    if visualflag == "face_detection":
-        return face_crop
-    elif visualflag =="facial_landmark_detection":
-        return frame
-    elif visualflag == "pose_estimation":
-        cv2.putText(frame, "Head PoseEstimation Angles: yaw:{:.2f} | pitch:{:.2f} | roll:{:.2f}".
-                    format(headpose_out[0],headpose_out[1],headpose_out[2]), (30, 30), cv2.FONT_HERSHEY_COMPLEX, 0.50, (255, 255, 0), 1)
-        return frame
-    elif visualflag == "gaze_estimation":
-        return frame
-    else:
-        return frame
-    
+        
 
 def main(args):
     
@@ -73,11 +50,26 @@ def main(args):
         file_not_found(args.modelfacedetection)
     elif not os.path.isfile(args.modelheadpose):
         file_not_found(args.modelheadpose)
-    facialLandMaskDetection = FacialLandmarksDetection(args.modelfaciallandmark, args.device, args.cpu_extension)
-    gazeEstimation = GazeEstimation(args.modelgazeestimation, args.device, args.cpu_extension)      
-    faceDetection = FaceDetection(args.modelfacedetection, args.device, args.cpu_extension,args.prob_threshold)
-    headPoseEstimation = HeadPoseEstimation(args.modelheadpose, args.device, args.cpu_extension)
     
+    if 'face_detection' in args.visualFlags : 
+        faceDetection = FaceDetection(args.modelfacedetection, args.device, args.cpu_extension,args.prob_threshold,visualflags='face_detection')
+    else:
+        faceDetection = FaceDetection(args.modelfacedetection, args.device, args.cpu_extension,args.prob_threshold)
+        
+    if 'facial_landmark_detection' in args.visualFlags : 
+        facialLandMaskDetection = FacialLandmarksDetection(args.modelfaciallandmark, args.device, args.cpu_extension ,visualflags='facial_landmark_detection')
+    else:
+        facialLandMaskDetection = FacialLandmarksDetection(args.modelfaciallandmark, args.device, args.cpu_extension)
+    
+    if 'pose_estimation' in args.visualFlags : 
+        headPoseEstimation = HeadPoseEstimation(args.modelheadpose, args.device, args.cpu_extension,visualflags='pose_estimation')
+    else:
+        headPoseEstimation = HeadPoseEstimation(args.modelheadpose, args.device, args.cpu_extension)
+        
+    if 'gaze_estimation' in args.visualFlags :  
+        gazeEstimation = GazeEstimation(args.modelgazeestimation, args.device, args.cpu_extension,visualflags='gaze_estimation')
+    else:
+        gazeEstimation = GazeEstimation(args.modelgazeestimation, args.device, args.cpu_extension)
     
     # Loading models
     faceDetection.load_model()
@@ -100,30 +92,16 @@ def main(args):
             break
         counter+=1
         #  here we run mutilple models prediction
-        face_crop, coords_face = faceDetection.predict(frame.copy())
-        headpose_out = headPoseEstimation.predict(face_crop)
-        left_eye, right_eye, eye_coords = facialLandMaskDetection.predict(face_crop)
-        new_mouse_coord, gaze_vector = gazeEstimation.predict(left_eye, right_eye, headpose_out)
+        frame,face_crop, detections = faceDetection.predict(frame)
+        left_eye, right_eye = facialLandMaskDetection.predict(face_crop)
+        headpose_out = headPoseEstimation.predict(face_crop, frame)
+        new_mouse_coord, gaze_vector = gazeEstimation.predict(left_eye, right_eye, headpose_out,frame)
         
-        #Create Dict for Visualization test
-        visualization_data = {
-            "frame":frame,
-            "face_crop":face_crop,
-            "coords_face":coords_face,
-            "headpose_out":headpose_out,
-            "left_eye":left_eye,
-            "right_eye":right_eye,
-            "eye_coords":eye_coords,
-            "gaze_vector":gaze_vector
-        }
         # add inference time text
         total_time = time.time() - inference_time
         inf_time_message = "Manasse_Ngudia | Inference time: {:.3f}ms"\
                                .format(total_time  * 1000)
-        cv2.putText(frame, inf_time_message, (15, 15),cv2.FONT_HERSHEY_COMPLEX, 0.50, (200, 10, 10), 1)
-        
-        #visualization_model(visualization_data)
-        frame = visualization_model(args.visualflag,visualization_data)
+        cv2.putText(frame, inf_time_message, (15, 50),cv2.FONT_HERSHEY_COMPLEX, 1, (200, 10, 10), 3)
         #Display frame
         cv2.imshow('frame', frame)
         #Controlle the  mouse
@@ -179,11 +157,13 @@ if __name__ == '__main__':
                         help="MKLDNN (CPU)-targeted custom layers."
                              "Absolute path to a shared library with the"
                              "kernels impl.")
-    parser.add_argument('-flag',"--visualflag",default=None,required=False, type=str,
+    parser.add_argument("-flags", "--visualFlags", required=False, nargs='+',
+                        default=[],
                         help = "Visualizing  of the output model ."
                         "for Face Detection model output, Enter face_detection "
                         "for Facial Landmark Detection model, Enter facial_landmark_detection "
                         "for Head Pose Estimation model, Enter pose_estimation "
-                        "for Gaze Estimation model , Enter gaze_estimation ")    
+                        "for Gaze Estimation model , Enter gaze_estimation "
+                        "example -flags face_detection facial_landmark_detection pose_estimation gaze_estimation (Space separated if multiple values)")    
     args = parser.parse_args()
     main(args) 
