@@ -52,7 +52,7 @@ cd <path_to_project_directory>/src
 #### Step 3
  Now, run the following command to run our application
 ```
-python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001.xml   -mfl <path_to_project_directory>/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml -mhp  <path_to_project_directory>/intel/head-pose-estimation-adas-0001/FP16/head-pose-estimation-adas-0001.xml  -mge  <path_to_project_directory>/intel/gaze-estimation-adas-0002/FP16/gaze-estimation-adas-0002.xml -v <path_to_project_directory>/bin/demo.mp4 -flags face_detection facial_landmark_detection pose_estimation gaze_estimation
+python3 main.py -mfd <path_to_project_directory>/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001.xml   -mfl <path_to_project_directory>/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml -mhp  <path_to_project_directory>/intel/head-pose-estimation-adas-0001/FP16/head-pose-estimation-adas-0001.xml  -mge  <path_to_project_directory>/intel/gaze-estimation-adas-0002/FP16/gaze-estimation-adas-0002.xml -v <path_to_project_directory>/bin/demo.mp4 -flags face_detection facial_landmark_detection pose_estimation gaze_estimation
 ```
 
 ## Documentation
@@ -88,7 +88,7 @@ python3 main.py -mdf <path_to_project_directory>/intel/face-detection-adas-binar
                         MKLDNN (CPU)-targeted custom layers.Absolute path to a
                         shared library with thekernels impl.
 
-  9. -flag VISUALFLAG, --visualflag VISUALFLAG
+  9. -flags VISUALFLAG, --visualflag VISUALFLAG
                         Visualizing of the output model .for Face Detection
                         model output, Enter face_detection for Facial Landmark
                         Detection model, Enter facial_landmark_detection for
